@@ -1,0 +1,12 @@
+<div>
+	<div class="tab-nav-global">
+		<ul class="nav nav-tabs">
+			<li ng-repeat="t in tabs"
+				ng-class="{'tab-nav': true, active: t.active, disabled: t.disabled}">
+				<a ui-sref="{{t.state}}" ng-if="!t.disabled" id="{{t.id}}">{{t.heading}}</a>
+				<a ng-if="t.disabled" id="{{t.id}}">{{t.heading}}</a>
+			</li>
+		</ul>
+	</div>
+	<div ui-view></div>
+</div>

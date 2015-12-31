@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" id="ng-app" data-ng-app="restbucks">
+<head>
+    <base href=""/>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+
+    <title>Restbucks Angular 1.x</title>
+</head>
+<body>
+<div id="header" data-ng-include="'template/header.html'"></div>
+
+<div id="content" data-ng-cloak data-ui-view></div>
+
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-ui-router/build/angular-ui-router.js"></script>
+<script src="node_modules/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<!-- application -->
+<script src="application/app.js"></script>
+<!--<script src="application/context/contextController.js"></script>-->
+<!--<script src="application/context/subContextController.js"></script>-->
+<!--<script src="application/context/contextDataStore.js"></script>-->
+<!--<script src="application/context/contextUpdateMediator.js"></script>-->
+
+<!-- home -->
+<script src="application/home/homeModule.js"></script>
+<script src="application/home/homeController.js"></script>
+<script src="application/home/orderHistoryController.js"></script>
+<script src="application/home/orderController.js"></script>
+<!--<script src="application/home/metricsService.js"></script>-->
+<!--<script src="application/home/metricsMockService.js"></script>-->
+</body>
+</html>
