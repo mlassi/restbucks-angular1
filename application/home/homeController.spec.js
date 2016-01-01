@@ -11,12 +11,12 @@ describe('Home Controller', function () {
         HomeController = $controller('HomeController as ctrl', {$scope: scope});
     }));
 
-    it('should', function () {
-        expect(true).toBeTruthy();
-    })
-
     it('Home Controller should be registered', function (){
         expect(HomeController).toBeDefined();
     });
+
+    it('should have two tabs', function () {
+        expect(scope.tabs.length).toEqual(2);
+    })
 
 });
