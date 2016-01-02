@@ -32,4 +32,13 @@ describe('Home Controller', function () {
         expect(scope.active('bar')).toBeFalsy();
     });
 
+    it('should set the first tab to active when the $stateChangeSuccess event fires', function () {
+       spyOn($state, 'is').and.callFake(function (state) {
+           return state === 'home.coffee';
+       });
+        scope.$broadcast('$stateChangeSuccess');
+        expect(scope.tabs[0].active).toBeTruthy();
+
+    });
+
 });
