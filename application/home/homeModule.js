@@ -1,34 +1,20 @@
 'use strict';
 
-angular.module('restbucks.Home', [
-    'ui.router',
-    'ui.bootstrap'
+angular.module('restbucks.home', [
+    'ui.router'
 ]);
 
-angular.module('restbucks.Home')
+angular.module('restbucks.home')
     .config(['$urlRouterProvider', '$stateProvider',
         function ($urlRouterProvider, $stateProvider) {
 
-            $urlRouterProvider
-                .when('', '/home/order')
-                .when('/', '/home/order');
-
             $stateProvider
                 .state('home', {
-                    abstract: true,
-                    url: '/home',
-                    templateUrl: 'template/tabNavTemplate.html',
-                    controller: 'HomeController'
-                })
-                .state('home.coffee', {
-                    url: '/order',
-                    templateUrl: 'application/home/views/coffee.html',
-                    controller: 'OrderController'
-                })
-                .state('home.orderhistory', {
-                    url: '/history',
-                    templateUrl: 'application/home/views/history.html',
-                    controller: 'OrderHistoryController'
+                    url: '/',
+                    templateUrl: 'application/templates/home.html',
+                    controller: 'HomeController',
+                    controllerAs: 'home'
                 });
+
         }
     ]);

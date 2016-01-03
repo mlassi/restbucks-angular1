@@ -1,23 +1,13 @@
-'use strict';
-ctrl.$inject = ['$scope', '$state'];
+(function () {
 
-angular.module('restbucks.Home').controller('HomeController', ctrl);
+    angular.module('restbucks.home')
+        .controller('HomeController', ['$log',
+            homeController]);
 
-function ctrl($scope, $state) {
+    function homeController($log) {
 
-    $scope.tabs = [
-        {heading: 'Home', state: 'home.coffee', active: false},
-        {heading: 'Order History', state: 'home.orderhistory', active: false}
-    ];
+        var vm = this;
 
-    $scope.active = function (state) {
-        return $state.is(state);
-    };
+    }
 
-    $scope.$on('$stateChangeSuccess', function () {
-        $scope.tabs.forEach(function (tab) {
-            tab.active = $scope.active(tab.state);
-        });
-    });
-
-};
+}());
