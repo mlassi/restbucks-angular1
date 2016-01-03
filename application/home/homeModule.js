@@ -1,4 +1,6 @@
-'use strict';
+
+(function () {
+    'use strict';
 
 angular.module('restbucks.home', [
     'ui.router'
@@ -18,3 +20,4 @@ angular.module('restbucks.home')
 
         }
     ]);
+}());

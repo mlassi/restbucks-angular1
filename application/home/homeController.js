@@ -1,4 +1,5 @@
 (function () {
+    'use strict';
 
     angular.module('restbucks.home')
         .controller('HomeController', ['$log',
