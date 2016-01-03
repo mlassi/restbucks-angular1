@@ -9,7 +9,7 @@ describe('Home Controller', function () {
         HomeController = $controller('HomeController');
     }));
 
-    it('Home Controller should be registered', function (){
+    it('should be registered', function (){
         expect(HomeController).toBeDefined();
     });
 
