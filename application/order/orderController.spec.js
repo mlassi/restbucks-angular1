@@ -3,8 +3,7 @@ describe('Order Controller', function () {
 
     beforeEach(module('restbucks.order'));
 
-   // let deferred;
-    let OrderController, $controller, $q;
+    let OrderController, OrderService, $controller, $q, deferred, $rootScope;
     const beverageList = [
         {id:1, name:'latte'},
         {id:2, name:'espresso'},
@@ -13,17 +12,24 @@ describe('Order Controller', function () {
     ];
 
     beforeEach(inject(function ($injector) {
+        $rootScope = $injector.get('$rootScope');
         $q = $injector.get('$q');
+        OrderService = $injector.get('OrderService');
         $controller = $injector.get('$controller');
-        OrderController = $controller('OrderController');
 
+        deferred = $q.defer();
+        spyOn(OrderService, 'getAllBeverages').and.returnValue(deferred.promise);
+
+        OrderController = $controller('OrderController');
     }));
 
     it('should be registered', function (){
         expect(OrderController).toBeDefined();
     });
 
-    xit('should return a list of 4 beverages', function () {
+    it('should return a list of 4 beverages', function () {
+        deferred.resolve(beverageList);
+        $rootScope.$digest();
         expect(OrderController.allBeverages.length).toEqual(4);
     });
 
