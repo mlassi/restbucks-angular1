@@ -3,7 +3,7 @@ describe('Order Service', function () {
 
     beforeEach(module('restbucks.order'));
 
-    let $httpBackend, OrderService;
+    let $httpBackend, OrderService, $log;
     const beverageList = [
         {id:1, name:'latte'},
         {id:2, name:'espresso'},
@@ -14,6 +14,7 @@ describe('Order Service', function () {
     beforeEach(inject(function ($injector) {
         OrderService = $injector.get('OrderService');
         $httpBackend = $injector.get('$httpBackend');
+        $log = $injector.get('$log');
     }));
 
     afterEach(function () {
@@ -25,34 +26,63 @@ describe('Order Service', function () {
         expect(OrderService).toBeDefined();
     });
 
-    it('should return a list of 4 beverages when getting all beverages', function () {
-        $httpBackend.whenGET('api/beverages').respond(beverageList);
+    describe('get all beverages - happy path', function () {
 
-        let result;
-        const promise = OrderService.getAllBeverages();
+        it('should return a list of 4 beverages when getting all beverages', function () {
+            $httpBackend.whenGET('api/beverages').respond(beverageList);
 
-        promise.then(function (response) {
-            result = response;
+            let result;
+            const promise = OrderService.getAllBeverages();
+
+            promise.then(function (response) {
+                result = response;
+            });
+            $httpBackend.flush();
+            expect(result.length).toEqual(4);
         });
-        $httpBackend.flush();
-        expect(result.length).toEqual(4);
     });
 
-    it('should reject the promise when getting all beverages fails', function () {
-        $httpBackend.whenGET('api/beverages').respond(404);
-        let result, expected = 'Error retrieving beverages.';
-        const promise = OrderService.getAllBeverages();
+    describe('get all beverages - failure path', function () {
 
-        promise.then(function (response) {
-            result = response;
-        })
-        .catch(function(response) {
-            result = response;
+        beforeEach(function () {
+            $httpBackend.whenGET('api/beverages').respond(404);
+            spyOn($log, 'error');
         });
-        $httpBackend.flush();
 
-        expect(result).toEqual(expected);
+        it('should reject the promise when getting all beverages fails', function () {
+            let result, expected = 'Error retrieving beverages.';
+            const promise = OrderService.getAllBeverages();
+
+            promise.then(function (response) {
+                    result = response;
+                })
+                .catch(function(response) {
+                    result = response;
+                });
+            $httpBackend.flush();
+
+            expect(result).toEqual(expected);
+        });
+
+        it('should log the error twhen getting all beverages fails', function () {
+            let result;
+            const promise = OrderService.getAllBeverages();
+
+            promise.then(function (response) {
+                    result = response;
+                })
+                .catch(function(response) {
+                    result = response;
+                });
+            $httpBackend.flush();
+
+            expect($log.error).toHaveBeenCalled();
+        });
     });
+
+
+
+
 
 });
 
