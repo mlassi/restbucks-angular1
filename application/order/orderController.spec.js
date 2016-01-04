@@ -27,21 +27,34 @@ describe('Order Controller', function () {
         expect(OrderController).toBeDefined();
     });
 
-    it('should return a list of 4 beverages', function () {
-        deferred.resolve(beverageList);
-        $rootScope.$digest();
 
-        expect(OrderController.allBeverages.length).toEqual(4);
-    });
+    describe('beverages', function () {
 
-    it('should show error when get all beverages fails', function () {
-        const expected = 'getAllBeverages failed.';
-        spyOn(window, 'alert');
+        it('should return a list of 4 beverages', function () {
+            deferred.resolve(beverageList);
+            $rootScope.$digest();
 
-        deferred.reject(expected);
-        $rootScope.$digest();
+            expect(OrderController.allBeverages.length).toEqual(4);
+        });
 
-        expect(window.alert).toHaveBeenCalledWith(expected);
+        it('should set the first beverage from the list to selectedBeverage', function () {
+            const expected = beverageList[0];
+
+            deferred.resolve(beverageList);
+            $rootScope.$digest();
+
+            expect(OrderController.selectedBeverage).toEqual(expected);
+        });
+
+        it('should show error when get all beverages fails', function () {
+            const expected = 'getAllBeverages failed.';
+            spyOn(window, 'alert');
+
+            deferred.reject(expected);
+            $rootScope.$digest();
+
+            expect(window.alert).toHaveBeenCalledWith(expected);
+        });
     });
 
 });

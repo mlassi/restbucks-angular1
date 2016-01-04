@@ -12,6 +12,7 @@
         OrderService.getAllBeverages()
             .then(function(result) {
                 vm.allBeverages = result;
+                vm.selectedBeverage = result[0];
             })
             .catch(showError);
 
