@@ -3,8 +3,7 @@ describe('Order Service', function () {
 
     beforeEach(module('restbucks.order'));
 
-    // let deferred;
-    let $httpBackend, $q, OrderService;
+    let $httpBackend, OrderService;
     const beverageList = [
         {id:1, name:'latte'},
         {id:2, name:'espresso'},
@@ -14,16 +13,30 @@ describe('Order Service', function () {
 
     beforeEach(inject(function ($injector) {
         OrderService = $injector.get('OrderService');
-        $q = $injector.get('$q');
-
+        $httpBackend = $injector.get('$httpBackend');
     }));
+
+    afterEach(function () {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
 
     it('should be registered', function (){
         expect(OrderService).toBeDefined();
     });
 
-    xit('should return a list of 4 beverages', function () {
-        expect(OrderController.allBeverages.length).toEqual(4);
+    it('should return a list of 4 beverages when getting all beverages', function () {
+        $httpBackend.whenGET('api/beverages').respond(beverageList);
+
+        let result;
+        const promise = OrderService.getAllBeverages();
+
+        promise.then(function (response) {
+            result = response;
+        });
+        $httpBackend.flush();
+
+        expect(result.length).toEqual(4);
     });
 
 });
