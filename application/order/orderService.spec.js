@@ -1,10 +1,10 @@
-describe('Order Controller', function () {
+describe('Order Service', function () {
     'use strict';
 
     beforeEach(module('restbucks.order'));
 
-   // let deferred;
-    let OrderController, $controller, $q;
+    // let deferred;
+    let $httpBackend, $q, OrderService;
     const beverageList = [
         {id:1, name:'latte'},
         {id:2, name:'espresso'},
@@ -13,14 +13,13 @@ describe('Order Controller', function () {
     ];
 
     beforeEach(inject(function ($injector) {
+        OrderService = $injector.get('OrderService');
         $q = $injector.get('$q');
-        $controller = $injector.get('$controller');
-        OrderController = $controller('OrderController');
 
     }));
 
     it('should be registered', function (){
-        expect(OrderController).toBeDefined();
+        expect(OrderService).toBeDefined();
     });
 
     xit('should return a list of 4 beverages', function () {

@@ -1,4 +1,5 @@
 describe('Home Controller', function () {
+    'use strict';
 
     beforeEach(module('restbucks.home'));
 

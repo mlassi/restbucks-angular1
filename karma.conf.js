@@ -14,7 +14,7 @@ module.exports = function(config) {
             'node_modules/angular-mocks/angular-mocks.js',
             'application/app.js',
             'application/home/homeModule.js',
-            'application/home/orderModule.js',
+            'application/order/orderModule.js',
             'application/**/*.js'
         ],
 
