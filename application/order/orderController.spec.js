@@ -30,7 +30,18 @@ describe('Order Controller', function () {
     it('should return a list of 4 beverages', function () {
         deferred.resolve(beverageList);
         $rootScope.$digest();
+
         expect(OrderController.allBeverages.length).toEqual(4);
+    });
+
+    it('should show error when get all beverages fails', function () {
+        const expected = 'getAllBeverages failed.';
+        spyOn(window, 'alert');
+
+        deferred.reject(expected);
+        $rootScope.$digest();
+
+        expect(window.alert).toHaveBeenCalledWith(expected);
     });
 
 });
