@@ -35,8 +35,23 @@ describe('Order Service', function () {
             result = response;
         });
         $httpBackend.flush();
-
         expect(result.length).toEqual(4);
+    });
+
+    it('should reject the promise when getting all beverages fails', function () {
+        $httpBackend.whenGET('api/beverages').respond(404);
+        let result, expected = 'Error retrieving beverages.';
+        const promise = OrderService.getAllBeverages();
+
+        promise.then(function (response) {
+            result = response;
+        })
+        .catch(function(response) {
+            result = response;
+        });
+        $httpBackend.flush();
+
+        expect(result).toEqual(expected);
     });
 
 });
