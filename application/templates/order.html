@@ -1,3 +1,14 @@
 <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
     <h1>Order</h1>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="beverages">Beverages</label>
+            <select ng-init="order.selectedBeverage"
+                    ng-model="order.selectedBeverage"
+                    ng-options="beverage as beverage.name for beverage in order.allBeverages"
+                    class="form-control"
+                    id="beveragelist"></select>
+
+        </div>
+    </form>
 </div>

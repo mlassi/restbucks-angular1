@@ -5,12 +5,15 @@
 
     function orderService($http, $q, $log) {
 
+        const server = 'http://localhost:8000/api';
+        const beverageURI = `${server}/order/beverage`;
+
         return {
             getAllBeverages: getAllBeverages
         };
 
         function getAllBeverages() {
-            return $http.get('api/beverages')
+            return $http.get(beverageURI)
                 .then(function(response) {
                     return response.data;
                 })

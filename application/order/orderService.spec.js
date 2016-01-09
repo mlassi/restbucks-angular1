@@ -29,7 +29,7 @@ describe('Order Service', function () {
     describe('get all beverages - happy path', function () {
 
         it('should return a list of 4 beverages when getting all beverages', function () {
-            $httpBackend.whenGET('api/beverages').respond(beverageList);
+            $httpBackend.whenGET('api/order/beverage').respond(beverageList);
 
             let result;
             const promise = OrderService.getAllBeverages();
@@ -45,7 +45,7 @@ describe('Order Service', function () {
     describe('get all beverages - failure path', function () {
 
         beforeEach(function () {
-            $httpBackend.whenGET('api/beverages').respond(404);
+            $httpBackend.whenGET('api/order/beverage').respond(404);
             spyOn($log, 'error');
         });
 
