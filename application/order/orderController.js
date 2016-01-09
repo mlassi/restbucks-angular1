@@ -8,6 +8,7 @@
     function orderController(OrderService) {
 
         var vm = this;
+        vm.cart = [];
 
         OrderService.getAllBeverages()
             .then(function(result) {
@@ -18,6 +19,10 @@
 
         function showError(message) {
             alert(message);
+        }
+
+        vm.addToCart = function() {
+            vm.cart.push({name: vm.selectedBeverage.name, quantity: vm.quantity});
         }
     }
 

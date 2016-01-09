@@ -4,6 +4,7 @@ describe('Order Service', function () {
     beforeEach(module('restbucks.order'));
 
     let $httpBackend, OrderService, $log;
+    const beverageURI = 'http://localhost:8000/api/order/beverage';
     const beverageList = [
         {id:1, name:'latte'},
         {id:2, name:'espresso'},
@@ -29,7 +30,7 @@ describe('Order Service', function () {
     describe('get all beverages - happy path', function () {
 
         it('should return a list of 4 beverages when getting all beverages', function () {
-            $httpBackend.whenGET('api/order/beverage').respond(beverageList);
+            $httpBackend.whenGET(beverageURI).respond(beverageList);
 
             let result;
             const promise = OrderService.getAllBeverages();
@@ -45,7 +46,7 @@ describe('Order Service', function () {
     describe('get all beverages - failure path', function () {
 
         beforeEach(function () {
-            $httpBackend.whenGET('api/order/beverage').respond(404);
+            $httpBackend.whenGET(beverageURI).respond(404);
             spyOn($log, 'error');
         });
 
@@ -64,7 +65,7 @@ describe('Order Service', function () {
             expect(result).toEqual(expected);
         });
 
-        it('should log the error twhen getting all beverages fails', function () {
+        it('should log the error when getting all beverages fails', function () {
             let result;
             const promise = OrderService.getAllBeverages();
 

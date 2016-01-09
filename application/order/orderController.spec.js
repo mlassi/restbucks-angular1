@@ -55,6 +55,33 @@ describe('Order Controller', function () {
 
             expect(window.alert).toHaveBeenCalledWith(expected);
         });
+
+        describe('shopping cart', function () {
+
+            beforeEach(function () {
+                OrderController.selectedBeverage = {name: 'latte'};
+                OrderController.quantity = 1;
+            });
+
+            it('should have one order item when adding one item to the cart', function () {
+                const expected = 1;
+
+                OrderController.addToCart();
+
+                expect(OrderController.cart.length).toEqual(expected);
+            });
+
+            it('should have both order and quantity in the cart', function () {
+                const expected = {name: 'latte', quantity: 1};
+
+                OrderController.addToCart();
+
+                expect(OrderController.cart[0]).toEqual(expected);
+            });
+
+        });
+
+
     });
 
 });
