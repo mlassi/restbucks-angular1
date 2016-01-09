@@ -27,6 +27,10 @@ describe('Order Controller', function () {
         expect(OrderController).toBeDefined();
     });
 
+    function setOrderItem() {
+        OrderController.selectedBeverage = {name: 'latte'};
+        OrderController.quantity = 1;
+    }
 
     describe('beverages', function () {
 
@@ -59,8 +63,7 @@ describe('Order Controller', function () {
         describe('shopping cart', function () {
 
             beforeEach(function () {
-                OrderController.selectedBeverage = {name: 'latte'};
-                OrderController.quantity = 1;
+                setOrderItem();
             });
 
             it('should have one order item when adding one item to the cart', function () {
@@ -81,6 +84,23 @@ describe('Order Controller', function () {
 
         });
 
+    describe('order submit', function () {
+
+        beforeEach(function () {
+            setOrderItem();
+            OrderController.addToCart();
+        });
+
+        it('should submit the order to the service', function () {
+            const expected = OrderController.cart;
+            spyOn(OrderService, 'sendOrder');
+
+            OrderController.submitOrder();
+
+            expect(OrderService.sendOrder).toHaveBeenCalledWith(expected);
+        })
+
+    });
 
     });
 

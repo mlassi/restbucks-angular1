@@ -9,7 +9,8 @@
         const beverageURI = `${server}/order/beverage`;
 
         return {
-            getAllBeverages: getAllBeverages
+            getAllBeverages: getAllBeverages,
+            sendOrder: function(){}
         };
 
         function getAllBeverages() {

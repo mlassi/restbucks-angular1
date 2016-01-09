@@ -23,7 +23,11 @@
 
         vm.addToCart = function() {
             vm.cart.push({name: vm.selectedBeverage.name, quantity: vm.quantity});
-        }
+        };
+
+        vm.submitOrder = function() {
+            OrderService.sendOrder(vm.cart);
+        };
     }
 
 }());
