@@ -4,12 +4,14 @@ describe('Order Service', function () {
     beforeEach(module('restbucks.order'));
 
     let $httpBackend, OrderService, $log;
-    const beverageURI = 'http://localhost:8000/api/order/beverage';
+    const baseURI = 'http://localhost:8000/api/order';
+    const beverageURI = `${baseURI}/beverage`;
+
     const beverageList = [
-        {id:1, name:'latte'},
-        {id:2, name:'espresso'},
-        {id:3, name:'coffee'},
-        {id:4, name:'cappuccino'}
+        {id: 1, name: 'latte'},
+        {id: 2, name: 'espresso'},
+        {id: 3, name: 'coffee'},
+        {id: 4, name: 'cappuccino'}
     ];
 
     beforeEach(inject(function ($injector) {
@@ -23,67 +25,96 @@ describe('Order Service', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should be registered', function (){
+    it('should be registered', function () {
         expect(OrderService).toBeDefined();
     });
 
-    describe('get all beverages - happy path', function () {
+    describe('beverages', function () {
 
-        it('should return a list of 4 beverages when getting all beverages', function () {
-            $httpBackend.whenGET(beverageURI).respond(beverageList);
+        describe('get all beverages - happy path', function () {
 
-            let result;
-            const promise = OrderService.getAllBeverages();
+            it('should return a list of 4 beverages when getting all beverages', function () {
+                $httpBackend.whenGET(beverageURI).respond(beverageList);
 
-            promise.then(function (response) {
-                result = response;
+                let result;
+                const promise = OrderService.getAllBeverages();
+
+                promise.then(function (response) {
+                    result = response;
+                });
+                $httpBackend.flush();
+                expect(result.length).toEqual(4);
             });
-            $httpBackend.flush();
-            expect(result.length).toEqual(4);
         });
+
+        describe('get all beverages - failure path', function () {
+
+            beforeEach(function () {
+
+                $httpBackend.whenGET(beverageURI).respond(404);
+                spyOn($log, 'error');
+            });
+
+            it('should reject the promise when getting all beverages fails', function () {
+                let result, expected = 'Error retrieving beverages.';
+                const promise = OrderService.getAllBeverages();
+
+                promise.then(function (response) {
+                        result = response;
+                    })
+                    .catch(function (response) {
+                        result = response;
+                    });
+                $httpBackend.flush();
+
+                expect(result).toEqual(expected);
+            });
+
+            it('should log the error when getting all beverages fails', function () {
+                let result;
+                const promise = OrderService.getAllBeverages();
+
+                promise.then(function (response) {
+                        result = response;
+                    })
+                    .catch(function (response) {
+                        result = response;
+                    });
+                $httpBackend.flush();
+
+                expect($log.error).toHaveBeenCalled();
+            });
+        });
+
+
     });
 
-    describe('get all beverages - failure path', function () {
+    describe('send order', function () {
 
+        let expectedOrder, order;
         beforeEach(function () {
-            $httpBackend.whenGET(beverageURI).respond(404);
-            spyOn($log, 'error');
+            expectedOrder = {"items": [{"name": "latte", "size": "small", "quantity": 1}]};
+            order = [{name: "latte", size: "small", quantity: 1}];
         });
 
-        it('should reject the promise when getting all beverages fails', function () {
-            let result, expected = 'Error retrieving beverages.';
-            const promise = OrderService.getAllBeverages();
+        describe('send order - happy path', function () {
 
-            promise.then(function (response) {
-                    result = response;
-                })
-                .catch(function(response) {
+            it('should send one order when we have one order item', function () {
+                $httpBackend.whenPOST(baseURI, expectedOrder).respond(201);
+                const expected = 201;
+                let result;
+                const promise = OrderService.sendOrder(order);
+
+                promise.then(function (response) {
                     result = response;
                 });
-            $httpBackend.flush();
+                $httpBackend.flush();
+                expect(result).toEqual(expected);
+            });
 
-            expect(result).toEqual(expected);
         });
 
-        it('should log the error when getting all beverages fails', function () {
-            let result;
-            const promise = OrderService.getAllBeverages();
-
-            promise.then(function (response) {
-                    result = response;
-                })
-                .catch(function(response) {
-                    result = response;
-                });
-            $httpBackend.flush();
-
-            expect($log.error).toHaveBeenCalled();
-        });
     });
-
-
-
-
 
 });
 

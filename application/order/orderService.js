@@ -1,27 +1,47 @@
 (function () {
+    'use strict';
 
     angular.module('restbucks.order')
         .factory('OrderService', ['$http', '$q', '$log', orderService]);
 
     function orderService($http, $q, $log) {
 
-        const server = 'http://localhost:8000/api';
-        const beverageURI = `${server}/order/beverage`;
+        const baseURI = 'http://localhost:8000/api/order';
+        const beverageURI = `${baseURI}/beverage`;
 
         return {
             getAllBeverages: getAllBeverages,
-            sendOrder: function(){}
+            sendOrder: sendOrder,
+            transformOrder: transformOrder
         };
 
         function getAllBeverages() {
             return $http.get(beverageURI)
-                .then(function(response) {
+                .then(function (response) {
                     return response.data;
                 })
-                .catch(function(response) {
+                .catch(function (response) {
                     $log.error('Error retrieving beverages: ' + response.statusText);
                     return $q.reject('Error retrieving beverages.');
                 })
+        }
+
+        function sendOrder(order) {
+            return $http.post(baseURI,
+                transformOrder(order)
+                )
+                .then(function (response) {
+                    return response.status;
+                });
+        }
+
+        function transformOrder(order) {
+            let result = {items: []};
+            order.map(function (item) {
+                result.items.push(item);
+            });
+
+            return result;
         }
 
     }

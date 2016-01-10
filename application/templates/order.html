@@ -9,9 +9,18 @@
                     class="form-control"
                     id="beveragelist">
             </select>
+            <label for="size">Size</label>
+            <select ng-init="order.selectedSize"
+                    ng-model="order.selectedSize"
+                    ng-options="size as size.name for size in order.allSizes"
+                    class="form-control"
+                    id="sizeList">
+            </select>
             <label for="quantity">Quantity</label>
-            <input type="text" name="quantity" ng-model="order.quantity" >
+            <input type="text" name="quantity" ng-model="order.quantity" />
         </div>
         <button type="submit">Add To Cart</button>
     </form>
+    <br>
+    <button type="button" ng-click="order.submitOrder()">Submit Order</button>
 </div>

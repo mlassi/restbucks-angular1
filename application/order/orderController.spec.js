@@ -29,6 +29,7 @@ describe('Order Controller', function () {
 
     function setOrderItem() {
         OrderController.selectedBeverage = {name: 'latte'};
+        OrderController.selectedSize = {name: 'small'};
         OrderController.quantity = 1;
     }
 
@@ -39,15 +40,6 @@ describe('Order Controller', function () {
             $rootScope.$digest();
 
             expect(OrderController.allBeverages.length).toEqual(4);
-        });
-
-        it('should set the first beverage from the list to selectedBeverage', function () {
-            const expected = beverageList[0];
-
-            deferred.resolve(beverageList);
-            $rootScope.$digest();
-
-            expect(OrderController.selectedBeverage).toEqual(expected);
         });
 
         it('should show error when get all beverages fails', function () {
@@ -74,8 +66,8 @@ describe('Order Controller', function () {
                 expect(OrderController.cart.length).toEqual(expected);
             });
 
-            it('should have both order and quantity in the cart', function () {
-                const expected = {name: 'latte', quantity: 1};
+            it('should have order and quantity in the cart', function () {
+                const expected = {name: 'latte', size: 'small', quantity: 1};
 
                 OrderController.addToCart();
 

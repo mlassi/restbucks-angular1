@@ -9,11 +9,11 @@
 
         var vm = this;
         vm.cart = [];
+        vm.allSizes = [{name: "small"}, {name: "medium"}, {name: "large"}];
 
         OrderService.getAllBeverages()
             .then(function(result) {
                 vm.allBeverages = result;
-                vm.selectedBeverage = result[0];
             })
             .catch(showError);
 
@@ -22,7 +22,12 @@
         }
 
         vm.addToCart = function() {
-            vm.cart.push({name: vm.selectedBeverage.name, quantity: vm.quantity});
+            const orderItem = {
+                name: vm.selectedBeverage.name,
+                size: vm.selectedSize.name,
+                quantity: vm.quantity
+            };
+            vm.cart.push(orderItem);
         };
 
         vm.submitOrder = function() {
