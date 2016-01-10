@@ -3,7 +3,8 @@ describe('Order Controller', function () {
 
     beforeEach(module('restbucks.order'));
 
-    let OrderController, OrderService, $controller, $q, deferredBeverages, deferredOrder, $rootScope;
+    let OrderController, OrderService, $controller, $q, deferredBeverages,
+        deferredOrder, $rootScope, $state;
     const beverageList = [
         {id: 1, name: 'latte'},
         {id: 2, name: 'espresso'},
@@ -14,6 +15,7 @@ describe('Order Controller', function () {
     beforeEach(inject(function ($injector) {
         $rootScope = $injector.get('$rootScope');
         $q = $injector.get('$q');
+        $state = $injector.get('$state');
         OrderService = $injector.get('OrderService');
         $controller = $injector.get('$controller');
 
@@ -21,6 +23,7 @@ describe('Order Controller', function () {
         deferredOrder = $q.defer();
         spyOn(OrderService, 'getAllBeverages').and.returnValue(deferredBeverages.promise);
         spyOn(OrderService, 'sendOrder').and.returnValue(deferredOrder.promise);
+        spyOn($state, 'go');
 
         OrderController = $controller('OrderController');
     }));
@@ -105,16 +108,26 @@ describe('Order Controller', function () {
                 expect(window.alert).toHaveBeenCalledWith(expected);
             });
 
+            it('should navigate to the invoice page after the order was submitted successfully', function () {
+                const expected = 'invoice';
+
+                OrderController.submitOrder();
+                deferredOrder.resolve(201);
+                $rootScope.$digest();
+
+                expect($state.go).toHaveBeenCalledWith(expected);
+            });
+
         });
 
         describe('lookup data', function () {
 
             it('should have a list of three sizes', function () {
-               expect(OrderController.allSizes.length).toEqual(3);
+                expect(OrderController.allSizes.length).toEqual(3);
             });
 
             it('should have a list of two locations', function () {
-               expect(OrderController.allLocations.length).toEqual(2);
+                expect(OrderController.allLocations.length).toEqual(2);
             });
 
         });

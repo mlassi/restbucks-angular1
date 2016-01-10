@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('restbucks.order')
-        .controller('OrderController', ['OrderService',
+        .controller('OrderController', ['OrderService', '$state',
             orderController]);
 
-    function orderController(OrderService) {
+    function orderController(OrderService, $state) {
 
         var vm = this;
         vm.cart = [];
@@ -33,6 +33,9 @@
 
         vm.submitOrder = function() {
             OrderService.sendOrder(createOrder())
+                .then(function() {
+                    $state.go('invoice');
+                })
                 .catch(showError);
         };
 
