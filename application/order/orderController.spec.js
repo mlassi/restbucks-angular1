@@ -106,6 +106,18 @@ describe('Order Controller', function () {
 
         });
 
+        describe('lookup data', function () {
+
+            it('should have a list of three sizes', function () {
+               expect(OrderController.allSizes.length).toEqual(3);
+            });
+
+            it('should have a list of two locations', function () {
+               expect(OrderController.allLocations.length).toEqual(2);
+            });
+
+        });
+
     });
 
 });

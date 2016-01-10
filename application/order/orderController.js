@@ -10,6 +10,7 @@
         var vm = this;
         vm.cart = [];
         vm.allSizes = [{name: "small"}, {name: "medium"}, {name: "large"}];
+        vm.allLocations = [{name: "in store"}, {name: "to go"}];
 
         OrderService.getAllBeverages()
             .then(function(result) {
