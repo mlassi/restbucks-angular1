@@ -3,12 +3,12 @@ describe('Order Controller', function () {
 
     beforeEach(module('restbucks.order'));
 
-    let OrderController, OrderService, $controller, $q, deferred, $rootScope;
+    let OrderController, OrderService, $controller, $q, deferredBeverages, deferredOrder, $rootScope;
     const beverageList = [
-        {id:1, name:'latte'},
-        {id:2, name:'espresso'},
-        {id:3, name:'coffee'},
-        {id:4, name:'cappuccino'}
+        {id: 1, name: 'latte'},
+        {id: 2, name: 'espresso'},
+        {id: 3, name: 'coffee'},
+        {id: 4, name: 'cappuccino'}
     ];
 
     beforeEach(inject(function ($injector) {
@@ -17,13 +17,15 @@ describe('Order Controller', function () {
         OrderService = $injector.get('OrderService');
         $controller = $injector.get('$controller');
 
-        deferred = $q.defer();
-        spyOn(OrderService, 'getAllBeverages').and.returnValue(deferred.promise);
+        deferredBeverages = $q.defer();
+        deferredOrder = $q.defer();
+        spyOn(OrderService, 'getAllBeverages').and.returnValue(deferredBeverages.promise);
+        spyOn(OrderService, 'sendOrder').and.returnValue(deferredOrder.promise);
 
         OrderController = $controller('OrderController');
     }));
 
-    it('should be registered', function (){
+    it('should be registered', function () {
         expect(OrderController).toBeDefined();
     });
 
@@ -36,7 +38,7 @@ describe('Order Controller', function () {
     describe('beverages', function () {
 
         it('should return a list of 4 beverages', function () {
-            deferred.resolve(beverageList);
+            deferredBeverages.resolve(beverageList);
             $rootScope.$digest();
 
             expect(OrderController.allBeverages.length).toEqual(4);
@@ -46,7 +48,7 @@ describe('Order Controller', function () {
             const expected = 'getAllBeverages failed.';
             spyOn(window, 'alert');
 
-            deferred.reject(expected);
+            deferredBeverages.reject(expected);
             $rootScope.$digest();
 
             expect(window.alert).toHaveBeenCalledWith(expected);
@@ -76,23 +78,33 @@ describe('Order Controller', function () {
 
         });
 
-    describe('order submit', function () {
+        describe('order submit', function () {
 
-        beforeEach(function () {
-            setOrderItem();
-            OrderController.addToCart();
+            beforeEach(function () {
+                setOrderItem();
+                OrderController.addToCart();
+            });
+
+            it('should submit the order to the service', function () {
+                const expected = OrderController.cart;
+
+                OrderController.submitOrder();
+
+                expect(OrderService.sendOrder).toHaveBeenCalledWith(expected);
+            });
+
+            it('should show error message when sending the order fails', function () {
+                const expected = 'sending order failed.';
+                spyOn(window, 'alert');
+
+                OrderController.submitOrder();
+                deferredOrder.reject(expected);
+                $rootScope.$digest();
+
+                expect(window.alert).toHaveBeenCalledWith(expected);
+            });
+
         });
-
-        it('should submit the order to the service', function () {
-            const expected = OrderController.cart;
-            spyOn(OrderService, 'sendOrder');
-
-            OrderController.submitOrder();
-
-            expect(OrderService.sendOrder).toHaveBeenCalledWith(expected);
-        })
-
-    });
 
     });
 

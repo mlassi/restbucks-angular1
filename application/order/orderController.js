@@ -31,7 +31,8 @@
         };
 
         vm.submitOrder = function() {
-            OrderService.sendOrder(vm.cart);
+            OrderService.sendOrder(vm.cart)
+                .catch(showError);
         };
     }
 
