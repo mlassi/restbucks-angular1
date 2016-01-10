@@ -93,8 +93,8 @@ describe('Order Service', function () {
 
         let expectedOrder, order;
         beforeEach(function () {
-            expectedOrder = {"items": [{"name": "latte", "size": "small", "quantity": 1}]};
-            order = [{name: "latte", size: "small", quantity: 1}];
+            expectedOrder = {"location": "in store", "items": [{"name": "latte", "size": "small", "quantity": 1}]};
+            order = {location: 'in store', items: [{name: "latte", size: "small", quantity: 1}]};
         });
 
         describe('send order - happy path', function () {

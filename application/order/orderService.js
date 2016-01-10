@@ -11,8 +11,7 @@
 
         return {
             getAllBeverages: getAllBeverages,
-            sendOrder: sendOrder,
-            transformOrder: transformOrder
+            sendOrder: sendOrder
         };
 
         function getAllBeverages() {
@@ -27,9 +26,7 @@
         }
 
         function sendOrder(order) {
-            return $http.post(baseURI,
-                transformOrder(order)
-                )
+            return $http.post(baseURI, order)
                 .then(function (response) {
                     return response.status;
                 })
@@ -37,15 +34,6 @@
                     $log.error('Error sending order: ' + response.statusText);
                     return $q.reject('Error sending order.');
                 })
-        }
-
-        function transformOrder(order) {
-            let result = {items: []};
-            order.map(function (item) {
-                result.items.push(item);
-            });
-
-            return result;
         }
 
     }
