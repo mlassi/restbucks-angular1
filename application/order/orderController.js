@@ -6,8 +6,7 @@
             orderController]);
 
     function orderController(OrderService, $state) {
-
-        var vm = this;
+        let vm = this;
         vm.cart = [];
         vm.allSizes = [{name: "small"}, {name: "medium"}, {name: "large"}];
         vm.allLocations = [{name: "in store"}, {name: "to go"}];

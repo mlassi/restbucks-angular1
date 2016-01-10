@@ -9,6 +9,7 @@ module.exports = function () {
             'application/app.js',
             'application/home/homeModule.js',
             'application/order/orderModule.js',
+            'application/invoice/invoiceModule.js',
             'application/**/*.js'
         ],
         autoWatch: true,

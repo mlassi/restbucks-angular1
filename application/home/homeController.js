@@ -6,8 +6,7 @@
             homeController]);
 
     function homeController($log) {
-
-        var vm = this;
+        let vm = this;
 
     }
 

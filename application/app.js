@@ -4,7 +4,8 @@
     angular.module('restbucks', [
         'ui.router',
         'restbucks.home',
-        'restbucks.order'
+        'restbucks.order',
+        'restbucks.invoice'
     ]);
 
     angular.module('restbucks').config(['$stateProvider', '$urlRouterProvider',
