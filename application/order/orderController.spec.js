@@ -81,12 +81,13 @@ describe('Order Controller', function () {
         describe('order submit', function () {
 
             beforeEach(function () {
+                OrderController.selectedLocation = {name: 'in store'};
                 setOrderItem();
                 OrderController.addToCart();
             });
 
             it('should submit the order to the service', function () {
-                const expected = OrderController.cart;
+                const expected = {location: 'in store', items: OrderController.cart};
 
                 OrderController.submitOrder();
 

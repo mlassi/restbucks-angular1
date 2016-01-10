@@ -32,9 +32,16 @@
         };
 
         vm.submitOrder = function() {
-            OrderService.sendOrder(vm.cart)
+            OrderService.sendOrder(createOrder())
                 .catch(showError);
         };
+
+        function createOrder() {
+            return {
+                location: vm.selectedLocation.name,
+                items: vm.cart
+            };
+        }
     }
 
 }());

@@ -1,8 +1,8 @@
 <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
     <h1>Order</h1>
     <form class="form-inline" ng-submit="order.addToCart()" novalidate>
-        <div class="form-group">
-            <label for="locations">Locations</label>
+        <div class="show">
+            <label for="locations">Location</label>
             <select ng-init="order.selectedLocation"
                     ng-model="order.selectedLocation"
                     ng-options="location as location.name for location in order.allLocations"
@@ -26,9 +26,9 @@
                     id="sizeList">
             </select>
             <label for="quantity">Quantity</label>
-            <input type="text" name="quantity" ng-model="order.quantity" />
+            <input type="text" name="quantity" ng-model="order.quantity"/>
         </div>
-        <button type="submit">Add To Cart</button>
+        <button class="show clearfix" type="submit">Add To Cart</button>
     </form>
     <br>
     <button type="button" ng-click="order.submitOrder()">Submit Order</button>
