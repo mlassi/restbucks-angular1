@@ -109,13 +109,12 @@ describe('Order Controller', function () {
             });
 
             it('should navigate to the invoice page after the order was submitted successfully', function () {
-                const expected = 'invoice';
 
                 OrderController.submitOrder();
-                deferredOrder.resolve(201);
+                deferredOrder.resolve({_id: 123});
                 $rootScope.$digest();
 
-                expect($state.go).toHaveBeenCalledWith(expected);
+                expect($state.go).toHaveBeenCalledWith('invoice', {id: 123});
             });
 
         });

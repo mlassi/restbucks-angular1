@@ -11,7 +11,7 @@
 
                 $stateProvider
                     .state('invoice', {
-                        url: '/invoice',
+                        url: '/invoice/:id',
                         templateUrl: 'application/templates/invoice.html',
                         controller: 'InvoiceController',
                         controllerAs: 'invoice'

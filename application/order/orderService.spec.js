@@ -100,8 +100,8 @@ describe('Order Service', function () {
         describe('send order - happy path', function () {
 
             it('should send one order when we have one order item', function () {
-                $httpBackend.whenPOST(baseURI, expectedOrder).respond(201);
-                const expected = 201;
+                const expected = {_id: 123};
+                $httpBackend.whenPOST(baseURI, expectedOrder).respond(201, {_id: 123});
                 let result;
                 const promise = OrderService.sendOrder(order);
 

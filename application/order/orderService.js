@@ -28,7 +28,7 @@
         function sendOrder(order) {
             return $http.post(baseURI, order)
                 .then(function (response) {
-                    return response.status;
+                    return response.data;
                 })
                 .catch(function (response) {
                     $log.error('Error sending order: ' + response.statusText);

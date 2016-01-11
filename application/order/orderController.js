@@ -32,8 +32,8 @@
 
         vm.submitOrder = function() {
             OrderService.sendOrder(createOrder())
-                .then(function() {
-                    $state.go('invoice');
+                .then(function(response) {
+                    $state.go('invoice', {id: response._id});
                 })
                 .catch(showError);
         };
