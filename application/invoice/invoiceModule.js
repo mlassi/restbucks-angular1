@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('restbucks.invoice', [
-        'ui.router'
+        'ui.router',
+        'restbucks.order'
     ]);
 
     angular.module('restbucks.invoice')

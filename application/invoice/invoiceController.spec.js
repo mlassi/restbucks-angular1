@@ -16,5 +16,9 @@ describe('Invoice Controller', function () {
         expect(InvoiceController).toBeDefined();
     });
 
+    it('should retrieve the current order when landing on the page', function () {
+
+    });
+
 });
 

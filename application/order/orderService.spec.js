@@ -136,5 +136,40 @@ describe('Order Service', function () {
 
     });
 
+    describe('retrieve order', function () {
+
+        it('should return the order if it exists', function () {
+            let result;
+            const expected = {id: 123};
+            const promise = OrderService.retrieveOrder(123);
+            $httpBackend.whenGET(baseURI).respond(expected);
+
+            promise.then(function (response) {
+                result = response;
+            });
+            $httpBackend.flush();
+
+            expect(result).toEqual(expected);
+        });
+
+        it('should return error when the order cannot be found', function () {
+            let result;
+            const expected = 'Error retrieving order 456';
+            $httpBackend.whenGET(baseURI).respond(expected);
+            const promise = OrderService.retrieveOrder(456);
+
+            promise.then(function (response) {
+                    result = response;
+                })
+                .catch(function (response) {
+                    result = response;
+                });
+            $httpBackend.flush();
+
+            expect(result).toEqual(expected);
+        });
+
+    });
+
 });
 

@@ -11,7 +11,8 @@
 
         return {
             getAllBeverages: getAllBeverages,
-            sendOrder: sendOrder
+            sendOrder: sendOrder,
+            retrieveOrder: retrieveOrder
         };
 
         function getAllBeverages() {
@@ -31,9 +32,20 @@
                     return response.data;
                 })
                 .catch(function (response) {
-                    $log.error('Error sending order: ' + response.statusText);
+                    $log.error(`Error sending order: ${response.statusText}`);
                     return $q.reject('Error sending order.');
+                });
+        }
+
+        function retrieveOrder(orderId) {
+            return $http.get(baseURI, orderId)
+                .then(function (response) {
+                    return response.data;
                 })
+                .catch(function (response) {
+                    $log.error(`Error retrieving order id: ${orderId} error ${response.statusText}`);
+                    return $q.reject(`Error retrieving order ${orderId}.`);
+                });
         }
 
     }
