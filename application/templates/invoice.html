@@ -2,6 +2,17 @@
     <h1>Invoice</h1>
     <label class="label label-primary" for="total">Order Total:{{invoice.currentOrder.cost}}</label>
     <form ng-submit="invoice.submitPayment()" novalidate>
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="payment">Payment Type</label>
+                <select ng-init="invoice.selectedPayment"
+                        ng-model="invoice.selectedPayment"
+                        ng-options="payment as payment.name for payment in invoice.allPaymentMethods"
+                        class="form-control"
+                        id="paymentList">
+                </select>
+            </div>
 
+        </div>
     </form>
 </div>
