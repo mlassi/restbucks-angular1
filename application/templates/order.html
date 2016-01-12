@@ -1,7 +1,8 @@
 <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
-    <h1>Order</h1>
-    <form class="form-inline" ng-submit="order.addToCart()" novalidate>
-        <div class="show">
+<h1>Order</h1>
+<form ng-submit="order.addToCart()" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
             <label for="locations">Location</label>
             <select ng-init="order.selectedLocation"
                     ng-model="order.selectedLocation"
@@ -10,7 +11,10 @@
                     id="locationList">
             </select>
         </div>
-        <div class="form-group">
+
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
             <label for="beverages">Beverages</label>
             <select ng-init="order.selectedBeverage"
                     ng-model="order.selectedBeverage"
@@ -18,6 +22,8 @@
                     class="form-control"
                     id="beveragelist">
             </select>
+        </div>
+        <div class="col-sm-3">
             <label for="size">Size</label>
             <select ng-init="order.selectedSize"
                     ng-model="order.selectedSize"
@@ -25,11 +31,16 @@
                     class="form-control"
                     id="sizeList">
             </select>
-            <label for="quantity">Quantity</label>
-            <input type="text" name="quantity" ng-model="order.quantity"/>
         </div>
-        <button class="show clearfix" type="submit">Add To Cart</button>
-    </form>
+        <div class="col-sm-3">
+            <label for="quantity">Quantity</label>
+            <input class="form-control" type="text" name="quantity" ng-model="order.quantity"/>
+        </div>
+
+    </div>
     <br>
-    <button type="button" ng-click="order.submitOrder()">Submit Order</button>
+    <button class="btn btn-primary" type="submit">Add To Cart</button>
+    <button class="btn btn-default" type="button" ng-click="order.submitOrder()">Submit Order</button>
+</form>
+
 </div>
