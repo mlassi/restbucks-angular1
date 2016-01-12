@@ -2,11 +2,16 @@
     'use strict';
 
     angular.module('restbucks.invoice')
-        .controller('InvoiceController', ['$log',
+        .controller('InvoiceController', ['$stateParams', 'OrderService',
             invoiceController]);
 
-    function invoiceController($log) {
+    function invoiceController($stateParams, OrderService) {
         let vm = this;
+
+        OrderService.retrieveOrder($stateParams.id)
+            .then(function(result) {
+                vm.currentOrder = result;
+            })
     }
 
 }());

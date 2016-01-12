@@ -1,13 +1,18 @@
 describe('Invoice Controller', function () {
     'use strict';
 
-    beforeEach(module('restbucks.invoice'));
+    beforeEach(module('restbucks.invoice', 'restbucks.order'));
 
-    let InvoiceController, $controller, rootScope;
+    let InvoiceController, $controller, $rootScope, OrderService, deferredPromise, $q;
 
     beforeEach(inject(function ($injector) {
-//        $rootScope = $injector.get('$rootScope');
+        $rootScope = $injector.get('$rootScope');
         $controller = $injector.get('$controller');
+        $q = $injector.get('$q');
+        OrderService = $injector.get('OrderService');
+
+        deferredPromise = $q.defer();
+        spyOn(OrderService, 'retrieveOrder').and.returnValue(deferredPromise.promise);
 
         InvoiceController = $controller('InvoiceController');
     }));
@@ -17,7 +22,13 @@ describe('Invoice Controller', function () {
     });
 
     it('should retrieve the current order when landing on the page', function () {
+        const expected = {id: 123};
 
+
+        deferredPromise.resolve(expected);
+        $rootScope.$digest();
+
+        expect(InvoiceController.currentOrder).toEqual(expected);
     });
 
 });
