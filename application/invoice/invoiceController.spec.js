@@ -41,5 +41,10 @@ describe('Invoice Controller', function () {
         expect(window.alert).toHaveBeenCalledWith(expected);
     });
 
+    it('should have 4 different payment methods', function () {
+
+        expect(InvoiceController.allPaymentMethods.length).toEqual(4);
+    })
+
 });
 
