@@ -38,7 +38,7 @@
         }
 
         function retrieveOrder(orderId) {
-            return $http.get(baseURI, orderId)
+            return $http.get(`${baseURI}/${orderId}`)
                 .then(function (response) {
                     return response.data;
                 })

@@ -31,5 +31,15 @@ describe('Invoice Controller', function () {
         expect(InvoiceController.currentOrder).toEqual(expected);
     });
 
+    it('should show error message when retrieving the current order fails', function () {
+        const expected = 'retrieving order failed.';
+        spyOn(window, 'alert');
+
+        deferredPromise.reject(expected);
+        $rootScope.$digest();
+
+        expect(window.alert).toHaveBeenCalledWith(expected);
+    });
+
 });
 

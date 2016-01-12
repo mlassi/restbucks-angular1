@@ -12,6 +12,11 @@
             .then(function(result) {
                 vm.currentOrder = result;
             })
+            .catch(showError);
+
+        function showError(message) {
+            alert(message);
+        }
     }
 
 }());

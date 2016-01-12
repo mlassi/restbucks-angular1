@@ -142,7 +142,7 @@ describe('Order Service', function () {
             let result;
             const expected = {id: 123};
             const promise = OrderService.retrieveOrder(123);
-            $httpBackend.whenGET(baseURI).respond(expected);
+            $httpBackend.whenGET(`${baseURI}/123`).respond(expected);
 
             promise.then(function (response) {
                 result = response;
@@ -155,7 +155,7 @@ describe('Order Service', function () {
         it('should return error when the order cannot be found', function () {
             let result;
             const expected = 'Error retrieving order 456';
-            $httpBackend.whenGET(baseURI).respond(expected);
+            $httpBackend.whenGET(`${baseURI}/456`).respond(expected);
             const promise = OrderService.retrieveOrder(456);
 
             promise.then(function (response) {
