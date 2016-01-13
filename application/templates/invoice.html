@@ -3,7 +3,17 @@
     <label class="label label-primary" for="total">Order Total:{{invoice.currentOrder.cost}}</label>
     <form ng-submit="invoice.submitPayment()" novalidate>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
+                <label for="Cardholder">Cardholder Name</label>
+                <input class="form-control" type="text" name="cardholderName"
+                       ng-model="invoice.cardholderName"/>
+            </div>
+            <div class="col-sm-2">
+                <label for="amount">Amount</label>
+                <input class="form-control" value="{{invoice.currentOrder.cost}}" type="number" name="cardholderName"
+                       ng-model="invoice.amount">
+            </div>
+            <div class="col-sm-2">
                 <label for="payment">Payment Type</label>
                 <select ng-init="invoice.selectedPayment"
                         ng-model="invoice.selectedPayment"
@@ -12,7 +22,33 @@
                         id="paymentList">
                 </select>
             </div>
-
         </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="expiryMonth">Expiry Month</label>
+                <select ng-init="invoice.expiryMonth"
+                        ng-model="invoice.expiryMonth"
+                        ng-options="month as month for month in invoice.allExpiryMonths"
+                        class="form-control"
+                        id="expiryMonthList">
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label for="expiryYear">Expiry Year</label>
+                <select ng-init="invoice.expiryYear"
+                        ng-model="invoice.expiryYear"
+                        ng-options="year as year for year in invoice.allExpiryYears"
+                        class="form-control"
+                        id="expiryYearList">
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label for="cardNumber">Card Number</label>
+                <input maxlength="16" class="form-control" type="text" name="cardNumber"
+                       ng-model="invoice.cardNumber">
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-primary" ng-click="invoice.payOrder()" type="submit">Pay Order</button>
     </form>
 </div>
