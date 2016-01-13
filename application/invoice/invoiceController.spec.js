@@ -3,16 +3,19 @@ describe('Invoice Controller', function () {
 
     beforeEach(module('restbucks.invoice', 'restbucks.order'));
 
-    let InvoiceController, $controller, $rootScope, OrderService, deferredPromise, $q;
+    let InvoiceController, $controller, $rootScope, OrderService,
+        InvoiceService, deferredPromise, $q;
 
     beforeEach(inject(function ($injector) {
         $rootScope = $injector.get('$rootScope');
         $controller = $injector.get('$controller');
         $q = $injector.get('$q');
         OrderService = $injector.get('OrderService');
+        InvoiceService = $injector.get('InvoiceService');
 
         deferredPromise = $q.defer();
         spyOn(OrderService, 'retrieveOrder').and.returnValue(deferredPromise.promise);
+        spyOn(InvoiceService, 'payOrder');
 
         InvoiceController = $controller('InvoiceController');
     }));
@@ -52,6 +55,11 @@ describe('Invoice Controller', function () {
 
     it('should have 5 years as expiry years', function() {
        expect(InvoiceController.allExpiryYears.length).toEqual(5);
+    });
+
+    it('should send a payment to the service', function () {
+        InvoiceController.payOrder();
+        expect(InvoiceService.payOrder).toHaveBeenCalled();
     });
 
 });
