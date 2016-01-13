@@ -46,5 +46,9 @@ describe('Invoice Controller', function () {
         expect(InvoiceController.allPaymentMethods.length).toEqual(4);
     })
 
+    it('should have 12 months as expiry months', function() {
+       expect(InvoiceController.allExpiryMonths.length).toEqual(12);
+    });
+
 });
 
