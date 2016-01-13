@@ -16,6 +16,12 @@
                         templateUrl: 'application/templates/invoice.html',
                         controller: 'InvoiceController',
                         controllerAs: 'invoice'
+                    })
+                    .state('receipt', {
+                        url: '/invoice/receipt/:id',
+                        templateUrl: 'application/templates/receipt.html',
+                        controller: 'InvoiceController',
+                        controllerAs: 'invoice'
                     });
 
             }

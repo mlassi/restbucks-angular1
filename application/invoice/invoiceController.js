@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('restbucks.invoice')
-        .controller('InvoiceController', ['$stateParams', 'OrderService', 'InvoiceService',
+        .controller('InvoiceController', ['$state', '$stateParams', 'OrderService', 'InvoiceService',
             invoiceController]);
 
-    function invoiceController($stateParams, OrderService, InvoiceService) {
+    function invoiceController($state, $stateParams, OrderService, InvoiceService) {
         let vm = this;
         vm.allPaymentMethods = [{name: 'VISA'}, {name:'MC'}, {name:'Amex'}, {name: 'Discover'}];
         vm.allExpiryMonths = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
@@ -22,7 +22,23 @@
         }
 
         vm.payOrder = function () {
-            InvoiceService.payOrder();
+            InvoiceService.payOrder(vm.currentOrder.id, createPayment())
+                .then(function () {
+                    $state.go('receipt');
+                });
+        };
+
+        function createPayment() {
+            return {
+                amount: vm.amount,
+                cardHolderName: vm.cardHolderName,
+                cardNumber: vm.cardNumber,
+                expiryMonth: vm.expiryMonth,
+                expiryYear: vm.expiryYear,
+                cardType: vm.selectedPayment.name
+
+
+            };
         }
     }
 
