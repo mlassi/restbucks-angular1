@@ -50,5 +50,9 @@ describe('Invoice Controller', function () {
        expect(InvoiceController.allExpiryMonths.length).toEqual(12);
     });
 
+    it('should have 5 years as expiry years', function() {
+       expect(InvoiceController.allExpiryYears.length).toEqual(5);
+    });
+
 });
 
