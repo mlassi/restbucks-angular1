@@ -8,7 +8,7 @@ describe('Invoice Controller', function () {
         InvoiceService, deferredPromise, $q, $state, deferred;
 
     function setPaymentToController(ctrl) {
-        ctrl.currentOrder = {id: 123};
+        ctrl.currentOrder = {_id: 123};
         ctrl.amount = 5;
         ctrl.cardHolderName = "John Doe";
         ctrl.selectedPayment = {name: "VISA"};

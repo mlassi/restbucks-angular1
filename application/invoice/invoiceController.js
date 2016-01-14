@@ -22,7 +22,7 @@
         }
 
         vm.payOrder = function () {
-            InvoiceService.payOrder(vm.currentOrder.id, createPayment())
+            InvoiceService.payOrder(vm.currentOrder._id, createPayment())
                 .then(function () {
                     $state.go('receipt');
                 })

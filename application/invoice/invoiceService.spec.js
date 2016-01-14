@@ -37,6 +37,22 @@ describe('Invoice Service', function () {
             $httpBackend.flush();
             expect(result).toEqual(200);
         });
+
+        it('should log the error when sending a payment fails', function () {
+            $httpBackend.whenPOST(`${paymentURI}/456`, {}).respond(500);
+            const expected = 500;
+            let result;
+            const promise = InvoiceService.payOrder(456, {});
+
+            promise.then(function (response) {
+                    result = response;
+                })
+                .catch(function (response) {
+                    result = response;
+                });
+            $httpBackend.flush();
+            expect($log.error).toHaveBeenCalled();
+        });
     });
 
 });

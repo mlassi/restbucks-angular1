@@ -17,6 +17,10 @@
                 .then(function (response) {
                     return response.status;
                 })
+                .catch(function (response) {
+                    $log.error(`Error sending payment: ${response.statusText}`);
+                    return $q.reject('Error sending payment.');
+                });
         }
 
     }
