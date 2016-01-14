@@ -23,5 +23,21 @@ describe('Invoice Service', function () {
         expect(InvoiceService).toBeDefined();
     });
 
+    describe('send order', function () {
+
+        it('should return HTTP 200 when the payment was sent successfully', function () {
+            $httpBackend.whenPOST(`${paymentURI}/123`, {}).respond(200);
+
+            let result;
+            const promise = InvoiceService.payOrder(123, {});
+
+            promise.then(function (response) {
+                result = response;
+            });
+            $httpBackend.flush();
+            expect(result).toEqual(200);
+        });
+    });
+
 });
 

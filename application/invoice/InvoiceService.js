@@ -12,8 +12,11 @@
             payOrder: payOrder
         };
 
-        function payOrder() {
-
+        function payOrder(orderId, payment) {
+            return $http.post(`${paymentURI}/${orderId}`, payment)
+                .then(function (response) {
+                    return response.status;
+                })
         }
 
     }
