@@ -96,7 +96,7 @@ describe('Invoice Controller', function () {
         deferred.resolve(200);
         $rootScope.$digest();
 
-        expect($state.go).toHaveBeenCalledWith('receipt');
+        expect($state.go).toHaveBeenCalledWith('receipt', {id: 123});
     })
 
     it('should display error if sending the payment failed', function () {
