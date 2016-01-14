@@ -25,7 +25,8 @@
             InvoiceService.payOrder(vm.currentOrder.id, createPayment())
                 .then(function () {
                     $state.go('receipt');
-                });
+                })
+                .catch(showError);
         };
 
         function createPayment() {

@@ -99,5 +99,17 @@ describe('Invoice Controller', function () {
         expect($state.go).toHaveBeenCalledWith('receipt');
     })
 
+    it('should display error if sending the payment failed', function () {
+        const expected = 'failed sending payment'
+        spyOn(window, 'alert');
+        setPaymentToController(InvoiceController);
+
+        InvoiceController.payOrder();
+        deferred.reject(expected);
+        $rootScope.$digest();
+
+        expect(window.alert).toHaveBeenCalledWith(expected);
+    })
+
 });
 
