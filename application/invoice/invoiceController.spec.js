@@ -90,7 +90,9 @@ describe('Invoice Controller', function () {
 
     it('should send the payment and navigate to result page', function () {
         spyOn($state, 'go');
+        setPaymentToController(InvoiceController);
 
+        InvoiceController.payOrder();
         deferred.resolve(200);
         $rootScope.$digest();
 
