@@ -7,7 +7,7 @@
 
     angular.module('restbucks.order')
         .config(['$urlRouterProvider', '$stateProvider',
-            function ($urlRouterProvider, $stateProvider) {
+             ($urlRouterProvider, $stateProvider) => {
 
                 $stateProvider
                     .state('order', {

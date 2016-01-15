@@ -17,7 +17,7 @@ describe('Invoice Controller', function () {
         ctrl.expiryYear = "2016";
     }
 
-    beforeEach(inject(function ($injector) {
+    beforeEach(inject(($injector) => {
         $rootScope = $injector.get('$rootScope');
         $controller = $injector.get('$controller');
         $q = $injector.get('$q');
@@ -33,11 +33,11 @@ describe('Invoice Controller', function () {
         InvoiceController = $controller('InvoiceController');
     }));
 
-    it('should be registered', function () {
+    it('should be registered', () => {
         expect(InvoiceController).toBeDefined();
     });
 
-    it('should retrieve the current order when landing on the page', function () {
+    it('should retrieve the current order when landing on the page', () => {
         const expected = {id: 123};
 
         deferredPromise.resolve(expected);
@@ -46,7 +46,7 @@ describe('Invoice Controller', function () {
         expect(InvoiceController.currentOrder).toEqual(expected);
     });
 
-    it('should show error message when retrieving the current order fails', function () {
+    it('should show error message when retrieving the current order fails', () => {
         const expected = 'retrieving order failed.';
         spyOn(window, 'alert');
 
@@ -56,20 +56,20 @@ describe('Invoice Controller', function () {
         expect(window.alert).toHaveBeenCalledWith(expected);
     });
 
-    it('should have 4 different payment methods', function () {
+    it('should have 4 different payment methods', () => {
 
         expect(InvoiceController.allPaymentMethods.length).toEqual(4);
     })
 
-    it('should have 12 months as expiry months', function() {
+    it('should have 12 months as expiry months', () => {
        expect(InvoiceController.allExpiryMonths.length).toEqual(12);
     });
 
-    it('should have 5 years as expiry years', function() {
+    it('should have 5 years as expiry years', () => {
        expect(InvoiceController.allExpiryYears.length).toEqual(5);
     });
 
-    it('should send a payment to the service', function () {
+    it('should send a payment to the service', () => {
         setPaymentToController(InvoiceController);
 
         InvoiceController.payOrder();
@@ -77,7 +77,7 @@ describe('Invoice Controller', function () {
         expect(InvoiceService.payOrder).toHaveBeenCalled();
     });
 
-    it('should send order and payment to the invoice service', function () {
+    it('should send order and payment to the invoice service', () => {
         const expected = {
             amount: 5, cardHolderName: "John Doe", cardNumber: "4111111111111111"
             , expiryMonth: "06", expiryYear: "2016", cardType: "VISA"};
@@ -88,7 +88,7 @@ describe('Invoice Controller', function () {
         expect(InvoiceService.payOrder).toHaveBeenCalledWith(123, expected);
     });
 
-    it('should send the payment and navigate to result page', function () {
+    it('should send the payment and navigate to result page', () => {
         spyOn($state, 'go');
         setPaymentToController(InvoiceController);
 
@@ -99,7 +99,7 @@ describe('Invoice Controller', function () {
         expect($state.go).toHaveBeenCalledWith('receipt', {id: 123});
     })
 
-    it('should display error if sending the payment failed', function () {
+    it('should display error if sending the payment failed', () => {
         const expected = 'failed sending payment'
         spyOn(window, 'alert');
         setPaymentToController(InvoiceController);

@@ -21,7 +21,7 @@
             alert(message);
         }
 
-        vm.payOrder = function () {
+        vm.payOrder = () => {
             InvoiceService.payOrder(vm.currentOrder._id, createPayment())
                 .then(function (response) {
                     $state.go('receipt', {id: vm.currentOrder._id});

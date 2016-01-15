@@ -14,10 +14,10 @@
 
         function payOrder(orderId, payment) {
             return $http.post(`${paymentURI}/${orderId}`, payment)
-                .then(function (response) {
+                .then((response) => {
                     return response.status;
                 })
-                .catch(function (response) {
+                .catch((response) => {
                     $log.error(`Error sending payment: ${response.statusText}`);
                     return $q.reject('Error sending payment.');
                 });

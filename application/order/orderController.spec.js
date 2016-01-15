@@ -12,7 +12,7 @@ describe('Order Controller', function () {
         {id: 4, name: 'cappuccino'}
     ];
 
-    beforeEach(inject(function ($injector) {
+    beforeEach(inject( ($injector) => {
         $rootScope = $injector.get('$rootScope');
         $q = $injector.get('$q');
         $state = $injector.get('$state');
@@ -28,7 +28,7 @@ describe('Order Controller', function () {
         OrderController = $controller('OrderController');
     }));
 
-    it('should be registered', function () {
+    it('should be registered', () => {
         expect(OrderController).toBeDefined();
     });
 
@@ -38,7 +38,7 @@ describe('Order Controller', function () {
         OrderController.quantity = 1;
     }
 
-    describe('beverages', function () {
+    describe('beverages', () => {
 
         it('should return a list of 4 beverages', function () {
             deferredBeverages.resolve(beverageList);
@@ -47,7 +47,7 @@ describe('Order Controller', function () {
             expect(OrderController.allBeverages.length).toEqual(4);
         });
 
-        it('should show error when get all beverages fails', function () {
+        it('should show error when get all beverages fails', () => {
             const expected = 'getAllBeverages failed.';
             spyOn(window, 'alert');
 
@@ -57,13 +57,13 @@ describe('Order Controller', function () {
             expect(window.alert).toHaveBeenCalledWith(expected);
         });
 
-        describe('shopping cart', function () {
+        describe('shopping cart', () => {
 
-            beforeEach(function () {
+            beforeEach(() => {
                 setOrderItem();
             });
 
-            it('should have one order item when adding one item to the cart', function () {
+            it('should have one order item when adding one item to the cart', () => {
                 const expected = 1;
 
                 OrderController.addToCart();
@@ -71,7 +71,7 @@ describe('Order Controller', function () {
                 expect(OrderController.cart.length).toEqual(expected);
             });
 
-            it('should have order and quantity in the cart', function () {
+            it('should have order and quantity in the cart', () => {
                 const expected = {name: 'latte', size: 'small', quantity: 1};
 
                 OrderController.addToCart();
@@ -81,15 +81,15 @@ describe('Order Controller', function () {
 
         });
 
-        describe('order submit', function () {
+        describe('order submit', () => {
 
-            beforeEach(function () {
+            beforeEach(() => {
                 OrderController.selectedLocation = {name: 'in store'};
                 setOrderItem();
                 OrderController.addToCart();
             });
 
-            it('should submit the order to the service', function () {
+            it('should submit the order to the service', () => {
                 const expected = {location: 'in store', items: OrderController.cart};
 
                 OrderController.submitOrder();
@@ -97,7 +97,7 @@ describe('Order Controller', function () {
                 expect(OrderService.sendOrder).toHaveBeenCalledWith(expected);
             });
 
-            it('should show error message when sending the order fails', function () {
+            it('should show error message when sending the order fails', () => {
                 const expected = 'sending order failed.';
                 spyOn(window, 'alert');
 
@@ -108,7 +108,7 @@ describe('Order Controller', function () {
                 expect(window.alert).toHaveBeenCalledWith(expected);
             });
 
-            it('should navigate to the invoice page after the order was submitted successfully', function () {
+            it('should navigate to the invoice page after the order was submitted successfully', () => {
 
                 OrderController.submitOrder();
                 deferredOrder.resolve({_id: 123});
@@ -119,13 +119,13 @@ describe('Order Controller', function () {
 
         });
 
-        describe('lookup data', function () {
+        describe('lookup data', () => {
 
-            it('should have a list of three sizes', function () {
+            it('should have a list of three sizes', () => {
                 expect(OrderController.allSizes.length).toEqual(3);
             });
 
-            it('should have a list of two locations', function () {
+            it('should have a list of two locations', () => {
                 expect(OrderController.allLocations.length).toEqual(2);
             });
 

@@ -5,12 +5,12 @@ describe('Home Controller', function () {
 
     var HomeController, $controller;
 
-    beforeEach(inject(function ($injector) {
+    beforeEach(inject(($injector) => {
         $controller = $injector.get('$controller');
         HomeController = $controller('HomeController');
     }));
 
-    it('should be registered', function (){
+    it('should be registered', () => {
         expect(HomeController).toBeDefined();
     });
 

@@ -12,7 +12,7 @@
         vm.allLocations = [{name: "in store"}, {name: "to go"}];
 
         OrderService.getAllBeverages()
-            .then(function(result) {
+            .then((result) => {
                 vm.allBeverages = result;
             })
             .catch(showError);
@@ -21,7 +21,7 @@
             alert(message);
         }
 
-        vm.addToCart = function() {
+        vm.addToCart = () => {
             const orderItem = {
                 name: vm.selectedBeverage.name,
                 size: vm.selectedSize.name,
@@ -30,7 +30,7 @@
             vm.cart.push(orderItem);
         };
 
-        vm.submitOrder = function() {
+        vm.submitOrder = () => {
             OrderService.sendOrder(createOrder())
                 .then(function(response) {
                     $state.go('invoice', {id: response._id});

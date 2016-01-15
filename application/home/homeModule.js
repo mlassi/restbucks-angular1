@@ -8,7 +8,7 @@ angular.module('restbucks.home', [
 
 angular.module('restbucks.home')
     .config(['$urlRouterProvider', '$stateProvider',
-        function ($urlRouterProvider, $stateProvider) {
+        ($urlRouterProvider, $stateProvider) => {
 
             $stateProvider
                 .state('home', {

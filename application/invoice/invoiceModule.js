@@ -8,7 +8,7 @@
 
     angular.module('restbucks.invoice')
         .config(['$urlRouterProvider', '$stateProvider',
-            function ($urlRouterProvider, $stateProvider) {
+             ($urlRouterProvider, $stateProvider) => {
 
                 $stateProvider
                     .state('invoice', {
